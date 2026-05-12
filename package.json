@@ -1,0 +1,20 @@
+{
+  "name": "mathblock",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "blockly": "^12.5.1",
+    "katex": "^0.16.45"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.6"
+  }
+}

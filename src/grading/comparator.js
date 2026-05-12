@@ -111,6 +111,14 @@ function firstSolution(value) {
 function label(type) {
   const labels = {
     definite_integral: '적분',
+    complete_square: '완전제곱식',
+    geometry_area: '도형 넓이',
+    trig_substitution: '삼각치환',
+    formula_lookup: '공식 적용',
+    set_parts: '부분적분 설정',
+    integrate_by_parts: '부분 적분법',
+    transform_integrand: '식 변형',
+    evaluate_bounds: '구간 대입',
     substitute: '치환',
     apply_power_rule: '거듭제곱 공식',
     simplify: '정리',

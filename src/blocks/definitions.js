@@ -128,7 +128,45 @@ function buildBlock(block, type) {
 function dropdown(type, optionKey, fallback) {
   const values = currentBlockOptions[type]?.[optionKey] ?? [fallback];
   const normalized = values.length ? values : [fallback];
-  return new Blockly.FieldDropdown(normalized.map((value) => [String(value), String(value)]));
+  return new Blockly.FieldDropdown(normalized.map((value) => [readableMath(String(value)), String(value)]));
+}
+
+function readableMath(expr) {
+  return expr
+    .replace(/\\int/g, '∫')
+    .replace(/\\sqrt\{([^}]+)\}/g, '√($1)')
+    .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
+    .replace(/\\sin\^?\{?-1\}?/g, 'arcsin')
+    .replace(/\\cos\^?\{?-1\}?/g, 'arccos')
+    .replace(/\\tan\^?\{?-1\}?/g, 'arctan')
+    .replace(/\\sin/g, 'sin')
+    .replace(/\\cos/g, 'cos')
+    .replace(/\\tan/g, 'tan')
+    .replace(/\\ln/g, 'ln')
+    .replace(/\\pi/g, 'π')
+    .replace(/\\theta/g, 'θ')
+    .replace(/\\infty/g, '∞')
+    .replace(/\\cdot/g, '·')
+    .replace(/\\,/g, '')
+    .replace(/\\quad/g, ' ')
+    .replace(/\\left/g, '')
+    .replace(/\\right/g, '')
+    .replace(/\{([^{}]+)\}/g, '$1')
+    .replace(/\{([^{}]+)\}/g, '$1')
+    .replace(/\^(\w)/g, (_, c) => toSuperscript(c))
+    .replace(/\^(\([^)]+\))/g, (_, g) => g.split('').map(toSuperscript).join(''))
+    .replace(/_(\w)/g, (_, c) => toSubscript(c))
+    .replace(/\\/g, '');
+}
+
+function toSuperscript(c) {
+  const map = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻', '+': '⁺', 'n': 'ⁿ', '(': '⁽', ')': '⁾' };
+  return map[c] ?? c;
+}
+
+function toSubscript(c) {
+  const map = { '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉', '-': '₋', '+': '₊' };
+  return map[c] ?? c;
 }
 
 function tooltip(type) {

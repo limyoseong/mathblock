@@ -57,20 +57,27 @@ function treeToBlockState(node, blockOptions, options) {
   if (options.x !== undefined) block.x = options.x;
   if (options.y !== undefined) block.y = options.y;
 
+  const childOpts = { ...options, x: undefined, y: undefined };
   const visibleChildren = (node.children ?? []).filter((child) => !options.prefilledOnly || child.prefilled !== false);
-  const nested = visibleChildren.filter((child) => hasNestedInput(node.type));
-  const stack = visibleChildren.filter((child) => !hasNestedInput(node.type));
 
-  if (nested.length) {
-    block.inputs = nested.reduce((inputs, child, index) => {
-      inputs[inputName(node.type, index)] = { block: treeToBlockState(child, blockOptions, { ...options, x: undefined, y: undefined }) };
-      return inputs;
-    }, {});
-  }
+  if (!visibleChildren.length) return block;
 
-  const sequential = stack.map((child) => treeToBlockState(child, blockOptions, { ...options, x: undefined, y: undefined }));
-  if (sequential.length) {
-    block.inputs = block.inputs ?? {};
+  block.inputs = {};
+
+  if (hasNestedInput(node.type)) {
+    const groups = new Map();
+    visibleChildren.forEach((child, index) => {
+      const name = inputName(node.type, index);
+      if (!groups.has(name)) groups.set(name, []);
+      groups.get(name).push(child);
+    });
+
+    for (const [name, children] of groups) {
+      const childBlocks = children.map((child) => treeToBlockState(child, blockOptions, childOpts));
+      block.inputs[name] = { block: linkStack(childBlocks) };
+    }
+  } else {
+    const sequential = visibleChildren.map((child) => treeToBlockState(child, blockOptions, childOpts));
     block.inputs.STEPS = { block: linkStack(sequential) };
   }
 

@@ -249,13 +249,21 @@ h1 {
   margin-bottom: 8px;
 }
 
-.step-notes span,
-.step-notes small {
+.step-notes .step-label {
   display: block;
+  font-weight: 600;
 }
 
-.step-notes small {
+.step-notes .step-math {
   color: #52677d;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+.step-notes .step-math .katex {
+  font-size: 1.1em;
+  white-space: normal;
 }
 
 .steps li {

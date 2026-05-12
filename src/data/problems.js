@@ -11,11 +11,12 @@ export const problems = [
       solutionPage: 21,
       problemNumber: '102',
     },
-    availableBlocks: ['definite_integral', 'complete_square', 'geometry_area', 'trig_substitution', 'simplify'],
+    availableBlocks: ['definite_integral', 'complete_square', 'geometry_area', 'trig_substitution', 'simplify', 'variable'],
     blockOptions: {
       complete_square: { expressions: ['3+2x-x^2', '4-(x-1)^2'] },
       geometry_area: { shapes: ['반원', '사분원'], radius: ['2'] },
       trig_substitution: { variables: ['x-1'], expressions: ['2sinθ'] },
+      variable: { names: ['x', 'θ'] },
     },
     solutionTree: {
       type: 'definite_integral',
@@ -57,12 +58,13 @@ export const problems = [
       solutionPage: 21,
       problemNumber: '103',
     },
-    availableBlocks: ['definite_integral', 'formula_lookup', 'multiply', 'add', 'simplify'],
+    availableBlocks: ['definite_integral', 'formula_lookup', 'multiply', 'add', 'simplify', 'variable'],
     blockOptions: {
       formula_lookup: {
         formulas: ['\\int\\frac{1}{\\sqrt{1-x^2}}dx=\\sin^{-1}x', '\\int\\frac{1}{1+x^2}dx=\\tan^{-1}x'],
       },
       multiply: { coefficients: ['1/2', '-3'] },
+      variable: { names: ['x', 'C'] },
     },
     solutionTree: {
       type: 'definite_integral',
@@ -111,10 +113,11 @@ export const problems = [
       solutionPage: 24,
       problemNumber: '117',
     },
-    availableBlocks: ['definite_integral', 'set_parts', 'integrate_by_parts', 'evaluate_bounds', 'simplify'],
+    availableBlocks: ['definite_integral', 'set_parts', 'integrate_by_parts', 'evaluate_bounds', 'simplify', 'variable'],
     blockOptions: {
       set_parts: { u: ['lnx'], dv: ['x^2dx'] },
       evaluate_bounds: { from: ['1'], to: ['e'] },
+      variable: { names: ['x', 'e'] },
     },
     solutionTree: {
       type: 'definite_integral',
@@ -162,10 +165,11 @@ export const problems = [
       solutionPage: 24,
       problemNumber: '118',
     },
-    availableBlocks: ['definite_integral', 'set_parts', 'integrate_by_parts', 'evaluate_bounds', 'simplify'],
+    availableBlocks: ['definite_integral', 'set_parts', 'integrate_by_parts', 'evaluate_bounds', 'simplify', 'variable'],
     blockOptions: {
       set_parts: { u: ['(lnx)^2', 'lnx'], dv: ['dx'] },
       evaluate_bounds: { from: ['1'], to: ['e'] },
+      variable: { names: ['x', 'e'] },
     },
     solutionTree: {
       type: 'definite_integral',
@@ -220,11 +224,12 @@ export const problems = [
       solutionPage: 24,
       problemNumber: '119',
     },
-    availableBlocks: ['definite_integral', 'set_parts', 'integrate_by_parts', 'transform_integrand', 'evaluate_bounds', 'simplify'],
+    availableBlocks: ['definite_integral', 'set_parts', 'integrate_by_parts', 'transform_integrand', 'evaluate_bounds', 'simplify', 'variable'],
     blockOptions: {
       set_parts: { u: ['tan^-1x'], dv: ['x dx'] },
       transform_integrand: { expressions: ['x^2/(1+x^2)=1-1/(1+x^2)'] },
       evaluate_bounds: { from: ['0'], to: ['sqrt3'] },
+      variable: { names: ['x'] },
     },
     solutionTree: {
       type: 'definite_integral',

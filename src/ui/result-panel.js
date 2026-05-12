@@ -1,3 +1,4 @@
+import katex from 'katex';
 import * as Blockly from 'blockly';
 import { setBlockOptions } from '../blocks/definitions.js';
 import { flatten } from '../grading/comparator.js';
@@ -17,7 +18,7 @@ export function renderResultPanel(container, result, warning, problem) {
     <section class="result ${statusClass}">
       <div class="result-head">
         <strong>${title}</strong>
-        <span>내 답: ${escapeHtml(result.userAnswer)} / 정답: ${escapeHtml(result.expectedAnswer)}</span>
+        <span>내 답: ${renderMath(result.userAnswer)} / 정답: ${renderMath(result.expectedAnswer)}</span>
       </div>
       ${warning ? `<p class="warning">${escapeHtml(warning)}</p>` : ''}
       <p>${escapeHtml(diagnosis)}</p>
@@ -41,8 +42,8 @@ export function renderSolutionTree(tree) {
       <ol class="step-notes">
         ${outputs.map((node) => `
           <li>
-            <span>${escapeHtml(label(node.type))}</span>
-            <small>${escapeHtml(node.expectedOutput ?? '')}</small>
+            <span class="step-label">${escapeHtml(label(node.type))}</span>
+            <div class="step-math">${renderMath(node.expectedOutput ?? '')}</div>
           </li>
         `).join('')}
       </ol>
@@ -85,6 +86,19 @@ function label(type) {
     variable: '변수',
   };
   return labels[type] ?? type;
+}
+
+function renderMath(value) {
+  const str = String(value ?? '');
+  if (!str) return '';
+  if (str.includes('\\') || str.includes('^') || str.includes('_') || str.includes('{')) {
+    try {
+      return katex.renderToString(str, { throwOnError: false, displayMode: false });
+    } catch {
+      return escapeHtml(str);
+    }
+  }
+  return escapeHtml(str);
 }
 
 function escapeHtml(value) {

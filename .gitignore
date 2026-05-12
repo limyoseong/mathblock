@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.claude/
+pdf-samples/
+.env
+.env.local
+npm-debug.log*
